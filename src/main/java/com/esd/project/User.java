@@ -79,7 +79,7 @@ public class User {
     }
 
     @UpdateTimestamp
-    @Column(name = "Updated_At")
+    @Column(name = "updatedAt")
     private LocalDateTime updatedAt;
 
     public LocalDateTime getUpdatedAt() {
