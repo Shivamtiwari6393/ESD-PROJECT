@@ -20,8 +20,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long UserId;
 
-    // USERNAME-------------- USERNAME--------- USERNAME---------- USERNAME-----
-    // USERNAME---------
+    // USERNAME-------------- USERNAME--------- USERNAME-----------------------
 
     @Column(nullable = false, unique = true)
     private String username;
@@ -63,8 +62,16 @@ public class User {
     // USER_CREATED_AT----------USER_CREATED_AT--------------USER_CREATED_AT-------------USER_CREATED_AT-----------USER_CREATED_AT---------
 
     @CreationTimestamp
-    @Column(name = "user_created_at")
-    private LocalDateTime userCreatedAt;
+    @Column(name = "createdAt")
+    private LocalDateTime CreatedAt;
+
+    public LocalDateTime getCreatedAt() {
+        return CreatedAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        CreatedAt = createdAt;
+    }
 
     // STATUS---------STATUS--------------STATUS-----------STATUS-------------STATUS-----------------STATUS----------STATUS---------
     @Column(nullable = false, columnDefinition = "tinyint default 1")
