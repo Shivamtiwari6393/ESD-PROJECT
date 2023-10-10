@@ -35,10 +35,7 @@ public class UserController {
         if (existingUser != null) {
             return "redirect:/user/registration?error=username_exists";
         }
-        String confirmpassword = user.getConfirmPassword();
-        System.out.println(confirmpassword);
-        System.out.println(user.getPassword());
-        System.out.println(confirmpassword.equals(user.getPassword()));
+    // PASSWORD CONFIRMATION-------------- PASSWORD CONFIRMATION --------------PASSWORD CONFIRMATION -----------PASSWORD CONFIRMATION -----------
         if (confirmpassword.equals(user.getPassword())) {
             String hashedPassword = passwordEncoder.encode(user.getPassword());
             user.setPassword(hashedPassword);
