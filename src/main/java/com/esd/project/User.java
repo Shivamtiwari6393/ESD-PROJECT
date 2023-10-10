@@ -3,6 +3,7 @@ package com.esd.project;
 import java.time.LocalDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -17,7 +18,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long UserId;
 
     // USERNAME-------------- USERNAME--------- USERNAME---------- USERNAME-----
     // USERNAME---------
@@ -75,6 +76,18 @@ public class User {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    @UpdateTimestamp
+    @Column(name = "Updated_At")
+    private LocalDateTime updatedAt;
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
 }
