@@ -10,23 +10,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping(path = "/user")
 public class UserController {
-
+                
     private final UserService userService;
 
     @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
     }
-
+// INITIALLY -------------------------------------------------------------------------------------
     @GetMapping("/registration")
     public String registrationForm(Model model) {
         model.addAttribute("user", new User());
         return "registration";
     }
-
+// AFTER SUBMITTING THE DATA------------------------------------------------------------------------
     @PostMapping("/registration")
     public String registerUser(User user) {
-        // Delegate the registration logic to the UserService
+    
         String result = userService.registerUser(user);
 
         if ("success".equals(result)) {
