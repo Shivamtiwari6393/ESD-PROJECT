@@ -23,9 +23,11 @@ public class UserService {
         if (existingUser != null) {
             return "username_exists";
         }
+        // Checks If Password Matches----------------------------------------------------------
 
         String confirmpassword = user.getConfirmPassword();
         if (confirmpassword.equals(user.getPassword())) {
+            // Password Hashing-----------------------------------------------------------------
             String hashedPassword = passwordEncoder.encode(user.getPassword());
             user.setPassword(hashedPassword);
 
