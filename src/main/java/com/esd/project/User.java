@@ -42,7 +42,7 @@ public class User {
         this.password = password;
     }
 
-    public CharSequence getPassword() {
+    public String getPassword() {
         return password;
     }
 
@@ -85,6 +85,7 @@ public class User {
         this.status = status;
     }
 
+    // USER_UPDATED_AT--------------USER_UPDATED_AT------------USER_UPDATED_AT----------USER_UPDATED_AT----------USER_UPDATED_AT
     @UpdateTimestamp
     @Column(name = "updatedAt")
     private LocalDateTime updatedAt;
