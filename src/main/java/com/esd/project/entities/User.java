@@ -1,4 +1,4 @@
-package com.esd.project;
+package com.esd.project.entities;
 
 import java.time.LocalDateTime;
 
@@ -20,16 +20,27 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long UserId;
 
-    // USERNAME-------------- USERNAME--------- USERNAME-----------------------
+    public Long getUserId() {
+
+        return UserId;
+    }
+
+    public void setUserId(Long userId) {
+
+        UserId = userId;
+    }
+    // USERNAME-------------- USERNAME-------USERNAME------------USERNAME--------
 
     @Column(nullable = false, unique = true)
     private String username;
 
     public String getUsername() {
+
         return username;
     }
 
     public void setUsername(String username) {
+
         this.username = username;
     }
 
@@ -39,24 +50,27 @@ public class User {
     private String password;
 
     public void setPassword(String password) {
+
         this.password = password;
     }
 
     public String getPassword() {
+
         return password;
     }
 
     // CONFIRMPASSWORD---------CONFIRMPASSWORD------------CONFIRMPASSWORD------CONFIRMPASSWORD---------CONFIRMPASSWORD-----------
-
     @Transient
     private String confirmPassword;
 
-    public String getConfirmPassword() {
-        return confirmPassword;
+    public void setConfirmPassword(String confirmPassword) {
+
+        this.confirmPassword = confirmPassword;
+
     }
 
-    public void setConfirmPassword(String confirmPassword) {
-        this.confirmPassword = confirmPassword;
+    public String getConfirmPassword() {
+        return confirmPassword;
     }
 
     // USER_CREATED_AT----------USER_CREATED_AT--------------USER_CREATED_AT-------------USER_CREATED_AT-----------USER_CREATED_AT---------
@@ -99,4 +113,4 @@ public class User {
     }
 
 }
-// -----------------------------------------------------------------------------------------------------------------------------------
+// **********************************************************************************************************************************8
