@@ -162,5 +162,10 @@ public class UserService {
         }
         return null;
     }
+
+    public List<UserDTO> getUsersByStatus(int status) {
+        List<User> users = userRepository.findByStatus(status);
+        return convertUsersToDTOs(users);
+    }
 }
 // --------------------------------------------------------------------------------------------------------------

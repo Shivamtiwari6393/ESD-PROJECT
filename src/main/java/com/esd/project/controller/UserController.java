@@ -148,5 +148,13 @@ public class UserController {
         }
     }
 
+    // FIND_USER_BY_STATUS----------------------------------------------------------------
+
+    @GetMapping("/find/status/{status}")
+    public ResponseEntity<List<UserDTO>> getUsersByStatus(@PathVariable int status) {
+        List<UserDTO> userDTOs = userService.getUsersByStatus(status);
+        return new ResponseEntity<>(userDTOs, HttpStatus.OK);
+    }
+
     // ******************************************************************************************************************************************
 }
