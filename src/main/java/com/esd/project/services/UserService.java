@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -109,7 +110,7 @@ public class UserService {
         }
     }
 
-    // UPDATE_USER----------UPDATE_USER----------UPDATE_USER----------UPDATE_USER----------UPDATE_USER----------UPDATE_USER
+    // UPDATE_USER_PASSWORD----------UPDATE_USER_PASSWORD----------UPDATE_USER_PASSWORD----------UPDATE_USER_PASSWORD----------
 
     public User updateUser(Long userId, User user) {
         if (userRepository.existsById(userId)) {
@@ -117,6 +118,22 @@ public class UserService {
             return userRepository.save(user);
         }
         return null;
+    }
+
+    // UPDATE_USER_STATUS-----------UPDATE_USER_STATUS------------UPDATE_USER_STATUS-----------UPDATE_USER_STATUS-------
+
+    public UserDTO updateUserStatus(Long userId, int newStatus) {
+        Optional<User> optionalUser = userRepository.findById(userId);
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            user.setStatus(newStatus);
+            userRepository.save(user);
+            return convertUserToDto(user);
+
+        }
+
+        return null;
+
     }
 
     // FIND_USER_BY_ID----------FIND_USER_BY_ID----------FIND_USER_BY_ID----------FIND_USER_BY_ID----------FIND_USER_BY_ID
@@ -154,6 +171,8 @@ public class UserService {
         return null;
     }
 
+    // GET_USER_BY_NAME---------GET_USER_BY_NAME-------------GET_USER_BY_NAME-----------GET_USER_BY_NAME
+
     public UserDTO getUserByUsername(String username) {
         User user = userRepository.findByUsername(username);
 
@@ -162,6 +181,8 @@ public class UserService {
         }
         return null;
     }
+
+    // GET_USER_BY_STATUS-------GET_USER_BY_STATUS------GET_USER_BY_STATUS---GET_USER_BY_STATUS
 
     public List<UserDTO> getUsersByStatus(int status) {
         List<User> users = userRepository.findByStatus(status);

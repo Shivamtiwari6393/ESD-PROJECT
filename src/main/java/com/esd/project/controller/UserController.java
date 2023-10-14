@@ -106,11 +106,12 @@ public class UserController {
             return new ResponseEntity<>(message, HttpStatus.ACCEPTED);
         } else {
             message = "User with ID " + userId + " not found.";
-            return new ResponseEntity<>(message, HttpStatus.ACCEPTED);
+            return ((BodyBuilder) ResponseEntity.notFound()).body(message);
         }
+
     }
 
-    // UPDATE_USER-------------UPDATE_USER----------UPDATE_USER-------------------UPDATE_USER------------------------------------------------
+    // UPDATE_USER_PASSWORD-------------UPDATE_USER_PASSWORD----------UPDATE_USER_PASSWORD-------------------UPDATE_USER_PASSWORD----
 
     @PutMapping("/{userId}/updatepassword")
     public ResponseEntity<String> updatePassword(@PathVariable Long userId, @RequestBody String newPassword) {
@@ -122,6 +123,23 @@ public class UserController {
             return ((BodyBuilder) ResponseEntity.notFound()).body("USER NOT FOUND");
         }
     }
+
+    // UPDATE_STATUS----------------UPDATE_STATUS-----------------UPDATE_STATUS----------------UPDATE_STATUS-----------------
+
+    @PutMapping("/{userId}/updatestatus/{newStatus}")
+    public ResponseEntity<?> updateUserStatus(
+            @PathVariable Long userId,
+            @PathVariable int newStatus) {
+        UserDTO updatedUser = userService.updateUserStatus(userId, newStatus);
+
+        if (updatedUser != null) {
+            return new ResponseEntity<>(updatedUser, HttpStatus.OK);
+        } else {
+            String message = "User with ID " + userId + " not found.";
+            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+        }
+    }
+
     // FIND_USER_BY_ID----------FIND_USER_BY_ID----------FIND_USER_BY_ID----------FIND_USER_BY_ID----------FIND_USER_BY_ID------------------
 
     @GetMapping("/{userId}")
@@ -131,7 +149,7 @@ public class UserController {
         if (user != null) {
             return new ResponseEntity<>(user, HttpStatus.OK);
         } else {
-            return ResponseEntity.ok().body("USER NOT FOUND");
+            return ((BodyBuilder) ResponseEntity.notFound()).body("USER NOT FOUND");
         }
     }
 
@@ -144,17 +162,24 @@ public class UserController {
         if (user != null) {
             return new ResponseEntity<>(user, HttpStatus.OK);
         } else {
-            return ResponseEntity.notFound().build();
+            return ((BodyBuilder) ResponseEntity.notFound()).body("USER NOT FOUND");
         }
     }
 
     // FIND_USER_BY_STATUS----------------------------------------------------------------
 
     @GetMapping("/find/status/{status}")
-    public ResponseEntity<List<UserDTO>> getUsersByStatus(@PathVariable int status) {
+    public ResponseEntity<?> getUsersByStatus(@PathVariable int status) {
         List<UserDTO> userDTOs = userService.getUsersByStatus(status);
-        return new ResponseEntity<>(userDTOs, HttpStatus.OK);
-    }
 
+        if (userDTOs.isEmpty()) {
+            // If no users are found, return a custom message
+            String message = "No users with status " + status + " found.";
+            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+        } else {
+            // If users are found, return the list of users
+            return new ResponseEntity<>(userDTOs, HttpStatus.OK);
+        }
+    }
     // ******************************************************************************************************************************************
 }
