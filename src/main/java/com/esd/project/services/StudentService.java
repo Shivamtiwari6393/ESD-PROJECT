@@ -74,4 +74,12 @@ public class StudentService {
 
     }
 
+    // FIND BY STATUS --------------------------------------
+
+    public List<Student> getStudentsByStatus(int status) {
+        List<Student> student = studentRepository.findByStatus(status);
+        return student;
+    }
 }
+
+// ***************************************************************************************

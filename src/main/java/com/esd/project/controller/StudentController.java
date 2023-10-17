@@ -29,25 +29,35 @@ public class StudentController {
         this.studentService = studentService;
     }
 
+    // GET ALL STUDENTS ---------------------------------------------------
+
     @GetMapping
     public List<Student> getAllStudents() {
         return studentService.getAllStudents();
     }
+
+    // GET STUDENT BY ID--------------------------------------------------------
 
     @GetMapping("/{studentId}")
     public Optional<Student> getStudentById(@PathVariable Long studentId) {
         return studentService.getStudentById(studentId);
     }
 
+    // CREATE STUDENT------------------------------------------------------------
+
     @PostMapping
     public Student createStudent(@RequestBody Student student) {
         return studentService.createStudent(student);
     }
 
+    // UPDATE STUDENT-------------------------------------------------------------
+
     @PutMapping("/{studentId}")
     public Student updateStudent(@PathVariable Long studentId, @RequestBody Student updatedStudent) {
         return studentService.updateStudent(studentId, updatedStudent);
     }
+
+    // DELETE STUDENT--------------------------------------------------------------
 
     @DeleteMapping("/{studentId}")
     public ResponseEntity<String> deleteStudent(@PathVariable Long studentId) {
@@ -66,5 +76,21 @@ public class StudentController {
             return ((BodyBuilder) ResponseEntity.notFound()).body(message);
         }
 
+    }
+
+    // GET STUDENT BY STATUS------------------------------------
+
+    @GetMapping("/status/{status}")
+    public ResponseEntity<?> getStudentsByStatus(@PathVariable int status) {
+        List<Student> students = studentService.getStudentsByStatus(status);
+
+        if (students.isEmpty()) {
+            // If no users are found, return a custom message
+            String message = "No users with status " + status + " found.";
+            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+        } else {
+            // If users are found, return the list of users
+            return new ResponseEntity<>(students, HttpStatus.OK);
+        }
     }
 }
