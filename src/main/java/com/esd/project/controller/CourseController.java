@@ -28,25 +28,37 @@ public class CourseController {
         this.courseService = courseService;
     }
 
+    // FETCH ALL COURSE-------------------------------------------------------------
+
     @GetMapping
     public List<Course> getAllCourses() {
         return courseService.getAllCourses();
     }
+
+    // GET COURSE BY ID--------------------------------------------------
 
     @GetMapping("/{courseId}")
     public Course getCourseById(@PathVariable Long courseId) {
         return courseService.getCourseById(courseId);
     }
 
+    // CREATE
+    // COURSE---------------------------------------------------------------------------
+
     @PostMapping
     public Course createCourse(@RequestBody Course course) {
         return courseService.createCourse(course);
     }
 
+    // UPDATE
+    // COURSE-----------------------------------------------------------------
+
     @PutMapping("/{courseId}")
-    public Course updateCourse(@PathVariable Long courseId, @RequestBody Course course) {
-        return courseService.updateCourse(courseId, course);
+    public Course updateCourse(@PathVariable Long courseId, @RequestBody Course updatedCourse) {
+        return courseService.updateCourse(courseId, updatedCourse);
     }
+
+    // DELETE COURSE-----------------------------------------------------
 
     @DeleteMapping("/{courseId}")
     public ResponseEntity<String> deleteCourse(@PathVariable Long courseId) {
@@ -66,7 +78,7 @@ public class CourseController {
         }
     }
 
-    // GET COURSES BY ID---------------------------------------------
+    // GET COURSES BY STATUS---------------------------------------------
 
     @GetMapping("/status/{status}")
     public ResponseEntity<?> getCoursesByStatus(@PathVariable int status) {

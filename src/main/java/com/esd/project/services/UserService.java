@@ -156,7 +156,7 @@ public class UserService {
         return userDto;
     }
 
-    // UPDATE_USER_NAME--------UPDATE_USER_NAME--------UPDATE_USER_NAME--------UPDATE_USER_NAME--------UPDATE_USER_NAME
+    // UPDATE_USER_PASSWORD--------UPDATE_USER_PASSWORD--------UPDATE_USER_PASSWORD--------UPDATE_USER_PASSWORD--------UPDATE_USER_PASSWORD
     public User updatePassword(Long userId, String newPassword) {
         Optional<User> optionalUser = userRepository.findById(userId);
 

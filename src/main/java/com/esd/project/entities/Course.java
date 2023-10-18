@@ -1,6 +1,6 @@
 package com.esd.project.entities;
 
-import java.sql.Date;
+import java.util.Date;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -26,6 +26,10 @@ public class Course {
 
     public Long getCourseId() {
         return courseId;
+    }
+
+    public void setCourseId(Long courseId) {
+        this.courseId = courseId;
     }
 
     // COURSE
@@ -69,13 +73,14 @@ public class Course {
         this.status = status;
     }
 
-    public void setCourseId(Long courseId2) {
-    }
-
     // CREATED AT-----------------------------------------------------------------
     @CreationTimestamp
     @Column(name = "created_at")
     private Date createdAt;
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
 
     public Date getCreatedAt() {
         return createdAt;
@@ -85,6 +90,10 @@ public class Course {
     @UpdateTimestamp
     @Column(name = "updated_at")
     private Date updatedAt;
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
+    }
 
     public Date getUpdatedAt() {
         return updatedAt;
