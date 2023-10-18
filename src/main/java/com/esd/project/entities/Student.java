@@ -6,6 +6,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 
 import java.util.Date;
 
@@ -56,6 +58,31 @@ public class Student {
         this.phoneNumber = phoneNumber;
     }
 
+    // AGE ------------------------------------------------------
+
+    @Column(name = "age")
+    private int age;
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+    // DATE OF BIRTH ------------------------------------------------
+
+    @Column(name = "date_of_birth")
+    @Temporal(TemporalType.DATE)
+    private Date dateOfBirth;
+
+    public Date getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
     // ADDRESS----------------------------------------------------------
 
     private String address;
