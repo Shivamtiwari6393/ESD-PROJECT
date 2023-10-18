@@ -1,5 +1,10 @@
 package com.esd.project.entities;
 
+import java.sql.Date;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -11,7 +16,9 @@ import jakarta.persistence.Table;
 @Table(name = "course")
 public class Course {
 
-    // COURSE ID
+    // COURSE
+    // ID---------------------------------------------------------------------
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "course_id")
@@ -21,7 +28,9 @@ public class Course {
         return courseId;
     }
 
-    // COURSE NAME
+    // COURSE
+    // NAME-------------------------------------------------------------------
+
     @Column(name = "course_name")
     private String courseName;
 
@@ -33,7 +42,9 @@ public class Course {
         this.courseName = courseName;
     }
 
-    // COURSE DESCRIPTION
+    // COURSE
+    // DESCRIPTION----------------------------------------------------------------
+
     @Column(name = "course_description")
     private String courseDescription;
 
@@ -61,4 +72,23 @@ public class Course {
     public void setCourseId(Long courseId2) {
     }
 
+    // CREATED AT-----------------------------------------------------------------
+    @CreationTimestamp
+    @Column(name = "created_at")
+    private Date createdAt;
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    // UPDATED AT-------------------------------------------------------------------
+    @UpdateTimestamp
+    @Column(name = "updated_at")
+    private Date updatedAt;
+
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
 }
+// ***********************************************************************************************
