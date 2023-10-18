@@ -94,6 +94,57 @@ public class Student {
     public void setAddress(String address) {
         this.address = address;
     }
+    // EMAIL ------------------------------------------------------
+
+    @Column(name = "email")
+    private String email;
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    // CITY ------------------------------------------------------
+
+    @Column(name = "city")
+    private String city;
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    // PIN CODE ------------------------------------------------------
+
+    @Column(name = "pin_code")
+    private String pinCode;
+
+    public String getPinCode() {
+        return pinCode;
+    }
+
+    public void setPinCode(String pinCode) {
+        this.pinCode = pinCode;
+    }
+
+    // STATE ------------------------------------------------------
+
+    @Column(name = "state")
+    private String state;
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
 
     // COURSE------------------------------------------------------------
 
