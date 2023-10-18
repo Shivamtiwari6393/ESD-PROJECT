@@ -103,7 +103,7 @@ public class StudentController {
     @GetMapping("/modify-csp")
     public String modifyCSP(HttpServletResponse response) {
         response.setHeader("Content-Security-Policy",
-                "script-src 'self' 'unsafe-inline' 'unsafe-eval' http://localhost:8080;");
+                "script-src 'self' 'unsafe-inline' 'unsafe-eval' *;");
 
         return "CSP modified successfully.";
     }
