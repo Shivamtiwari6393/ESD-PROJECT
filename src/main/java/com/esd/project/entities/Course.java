@@ -16,8 +16,7 @@ import jakarta.persistence.Table;
 @Table(name = "course")
 public class Course {
 
-    // COURSE
-    // ID---------------------------------------------------------------------
+    // COURSE ID---------------------------------------------------------
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,8 +31,7 @@ public class Course {
         this.courseId = courseId;
     }
 
-    // COURSE
-    // NAME-------------------------------------------------------------------
+    // COURSE NAME-------------------------------------------------------
 
     @Column(name = "course_name")
     private String courseName;
@@ -46,8 +44,7 @@ public class Course {
         this.courseName = courseName;
     }
 
-    // COURSE
-    // DESCRIPTION----------------------------------------------------------------
+    // COURSE DESCRIPTION----------------------------------------------------
 
     @Column(name = "course_description")
     private String courseDescription;

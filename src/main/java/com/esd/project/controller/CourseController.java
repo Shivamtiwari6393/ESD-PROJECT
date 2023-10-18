@@ -42,16 +42,14 @@ public class CourseController {
         return courseService.getCourseById(courseId);
     }
 
-    // CREATE
-    // COURSE---------------------------------------------------------------------------
+    // CREATE COURSE-------------------------------------------------------------
 
     @PostMapping
     public Course createCourse(@RequestBody Course course) {
         return courseService.createCourse(course);
     }
 
-    // UPDATE
-    // COURSE-----------------------------------------------------------------
+    // UPDATE COURSE-----------------------------------------------------
 
     @PutMapping("/{courseId}")
     public Course updateCourse(@PathVariable Long courseId, @RequestBody Course updatedCourse) {
@@ -85,11 +83,10 @@ public class CourseController {
         List<Course> course = courseService.getCoursesByStatus(status);
 
         if (course.isEmpty()) {
-            // If no courses are found, return a custom message
+
             String message = "No course with status " + status + " found.";
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
         } else {
-            // If courses are found, return the list of users
             return new ResponseEntity<>(course, HttpStatus.OK);
         }
     }
