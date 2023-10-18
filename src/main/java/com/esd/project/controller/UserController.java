@@ -43,17 +43,16 @@ public class UserController {
     // AFTER SUBMITTING THE DATA-----------------------------------
 
     @PostMapping("/registration")
-    public String registerUser(User user) {
-
+    public ResponseEntity<String> registerUser(User user) {
         String result = userService.registerUser(user);
 
         if ("success".equals(result)) {
-            return "redirect:/user/registration?success";
-        } else if ("username_exists".equals(result)) {
-            return "redirect:/user/registration?error=username_exists";
-        } else {
-            return "redirect:/user/registration?passworderror=password_mismatch";
+
+            return ResponseEntity.ok("Registration successful");
         }
+
+        return ResponseEntity.status(409).body("Username already exists");
+
     }
 
     // LOGIN---------- LOGIN------- LOGIN ---------LOGIN--------- LOGIN-----------
@@ -65,12 +64,13 @@ public class UserController {
     // AFTER SUBMISSION OF USERNAME , PASSWORD----------------------------------
 
     @PostMapping("/login")
-    public String loginUser(@RequestParam("username") String username, @RequestParam("password") String password) {
+    public ResponseEntity<String> loginUser(@RequestParam("username") String username,
+            @RequestParam("password") String password) {
         String result = userService.loginUser(username, password);
         if ("success".equals(result)) {
-            return "redirect:/user/dashboard";
+            return ResponseEntity.ok("Login successful");
         } else {
-            return "redirect:/user/login?usererror=login_failed";
+            return ResponseEntity.badRequest().body("Login failed invalid username or password");
         }
     }
 

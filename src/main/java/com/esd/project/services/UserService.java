@@ -33,29 +33,17 @@ public class UserService {
         if (existingUser != null) {
             return "username_exists";
         }
-        // Checks If Password Matches-----------------------------------
-
-        String confirmpassword = user.getConfirmPassword();
-
-        if (confirmpassword.equals(user.getPassword())) {
-            // Password Hashing-------------------------------------------
-
-            String hashedPassword = passwordEncoder.encode(user.getPassword());
-            user.setPassword(hashedPassword);
-
-            userRepository.save(user);
-            return "success";
-        } else {
-            return "password_mismatch";
-        }
+        // Password Hashing-------------------------------------------
+        String hashedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(hashedPassword);
+        userRepository.save(user);
+        return "success";
     }
 
     public String loginUser(String username, String password) {
-        // Logic for user login
 
         User existingUser = userRepository.findByUsername(username);
-        System.out.println(username);
-        System.out.println(password);
+
         if (existingUser != null && passwordEncoder.matches(password, existingUser.getPassword())) {
             // Successful login
 
