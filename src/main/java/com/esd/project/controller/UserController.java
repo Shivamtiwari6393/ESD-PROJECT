@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.ResponseEntity.BodyBuilder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,6 +23,7 @@ import com.esd.project.entities.User;
 import com.esd.project.services.UserService;
 
 @Controller
+@CrossOrigin(origins = "*")
 @RequestMapping(path = "/user")
 public class UserController {
 
@@ -33,7 +35,7 @@ public class UserController {
     }
 
     // REGISTRATION---REGISTRATION------------REGISTRATION---------REGISTRATION
-
+    @CrossOrigin(origins = "*")
     @GetMapping("/registration")
     public String registrationForm(Model model) {
         model.addAttribute("user", new User());
@@ -41,7 +43,7 @@ public class UserController {
     }
 
     // AFTER SUBMITTING THE DATA-----------------------------------
-
+    @CrossOrigin(origins = "*")
     @PostMapping("/registration")
     public ResponseEntity<String> registerUser(User user) {
         String result = userService.registerUser(user);
@@ -56,13 +58,14 @@ public class UserController {
     }
 
     // LOGIN---------- LOGIN------- LOGIN ---------LOGIN--------- LOGIN-----------
-
+    @CrossOrigin(origins = "*")
     @GetMapping("/login")
     public String loginForm() {
         return "login";
     }
-    // AFTER SUBMISSION OF USERNAME , PASSWORD----------------------------------
 
+    // AFTER SUBMISSION OF USERNAME , PASSWORD----------------------------------
+    @CrossOrigin(origins = "*")
     @PostMapping("/login")
     public ResponseEntity<String> loginUser(@RequestParam("username") String username,
             @RequestParam("password") String password) {
@@ -75,14 +78,14 @@ public class UserController {
     }
 
     // DASHBOARD--------DASHBOARD---------DASHBOARD----------DASHBOARD----------DASHBOARD---------------------------------------
-
+    @CrossOrigin(origins = "*")
     @GetMapping("/dashboard")
     public String dashboard(Model model) {
         return "dashboard";
     }
 
     // FIND_ALL_USER--------FIND_ALL_USER---------------FIND_ALL_USER--------------FIND_ALL_USER-------------------------------------------
-
+    @CrossOrigin(origins = "*")
     @GetMapping("/all")
     public ResponseEntity<List<UserDTO>> getAllUserInfo(Model model) {
         List<UserDTO> users = userService.getAllUsers();
@@ -90,8 +93,9 @@ public class UserController {
         return ResponseEntity.ok().body(users);
 
     }
-    // DELETE_USER----------DELETE_USER----------DELETE_USER-------DELETE_USER------------------------------------------------------
 
+    // DELETE_USER----------DELETE_USER----------DELETE_USER-------DELETE_USER------------------------------------------------------
+    @CrossOrigin(origins = "*")
     @DeleteMapping("/{userId}")
     public ResponseEntity<String> deleteUser(@PathVariable Long userId) {
         String message;
@@ -112,7 +116,7 @@ public class UserController {
     }
 
     // UPDATE_USER_PASSWORD-------------UPDATE_USER_PASSWORD----------UPDATE_USER_PASSWORD-------------------UPDATE_USER_PASSWORD----
-
+    @CrossOrigin(origins = "*")
     @PutMapping("/{userId}/updatepassword")
     public ResponseEntity<String> updatePassword(@PathVariable Long userId, @RequestBody String newPassword) {
         User updatedUser = userService.updatePassword(userId, newPassword);
@@ -125,7 +129,7 @@ public class UserController {
     }
 
     // UPDATE_STATUS----------------UPDATE_STATUS-----------------UPDATE_STATUS----------------UPDATE_STATUS-----------------
-
+    @CrossOrigin(origins = "*")
     @PutMapping("/{userId}/updatestatus/{newStatus}")
     public ResponseEntity<?> updateUserStatus(
             @PathVariable Long userId,
@@ -141,7 +145,7 @@ public class UserController {
     }
 
     // FIND_USER_BY_ID----------FIND_USER_BY_ID----------FIND_USER_BY_ID----------FIND_USER_BY_ID----------FIND_USER_BY_ID------------------
-
+    @CrossOrigin(origins = "*")
     @GetMapping("/{userId}")
     public ResponseEntity<?> getUserById(@PathVariable Long userId) {
         UserDTO user = userService.getUserById(userId);
@@ -154,7 +158,7 @@ public class UserController {
     }
 
     // FIND USER BY NAME--------------------------------------------------
-
+    @CrossOrigin(origins = "*")
     @GetMapping("/find/{username}")
     public ResponseEntity<?> getUserByUsername(@PathVariable String username) {
         UserDTO user = userService.getUserByUsername(username);
@@ -167,7 +171,7 @@ public class UserController {
     }
 
     // FIND_USER_BY_STATUS----------------------------------------------------------------
-
+    @CrossOrigin(origins = "*")
     @GetMapping("/find/status/{status}")
     public ResponseEntity<?> getUsersByStatus(@PathVariable int status) {
         List<UserDTO> userDTOs = userService.getUsersByStatus(status);

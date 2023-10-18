@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.ResponseEntity.BodyBuilder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.esd.project.entities.Student;
 import com.esd.project.services.StudentService;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/student")
 public class StudentController {
@@ -30,35 +32,35 @@ public class StudentController {
     }
 
     // GET ALL STUDENTS ---------------------------------------------------
-
+    @CrossOrigin(origins = "*")
     @GetMapping
     public List<Student> getAllStudents() {
         return studentService.getAllStudents();
     }
 
     // GET STUDENT BY ID--------------------------------------------------------
-
+    @CrossOrigin(origins = "*")
     @GetMapping("/{studentId}")
     public Optional<Student> getStudentById(@PathVariable Long studentId) {
         return studentService.getStudentById(studentId);
     }
 
     // CREATE STUDENT------------------------------------------------------------
-
+    @CrossOrigin(origins = "*")
     @PostMapping
     public Student createStudent(@RequestBody Student student) {
         return studentService.createStudent(student);
     }
 
     // UPDATE STUDENT-------------------------------------------------------------
-
+    @CrossOrigin(origins = "*")
     @PutMapping("/{studentId}")
     public Student updateStudent(@PathVariable Long studentId, @RequestBody Student updatedStudent) {
         return studentService.updateStudent(studentId, updatedStudent);
     }
 
     // DELETE STUDENT--------------------------------------------------------------
-
+    @CrossOrigin(origins = "*")
     @DeleteMapping("/{studentId}")
     public ResponseEntity<String> deleteStudent(@PathVariable Long studentId) {
         String message;
@@ -79,7 +81,7 @@ public class StudentController {
     }
 
     // GET STUDENT BY STATUS------------------------------------
-
+    @CrossOrigin(origins = "*")
     @GetMapping("/status/{status}")
     public ResponseEntity<?> getStudentsByStatus(@PathVariable int status) {
         List<Student> students = studentService.getStudentsByStatus(status);
