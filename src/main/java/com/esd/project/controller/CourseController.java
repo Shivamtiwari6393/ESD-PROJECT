@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.esd.project.entities.Course;
 import com.esd.project.services.CourseService;
 
-
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/course")

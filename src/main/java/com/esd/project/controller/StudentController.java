@@ -21,6 +21,8 @@ import com.esd.project.entities.Student;
 import com.esd.project.services.StudentService;
 
 
+import jakarta.servlet.http.HttpServletResponse;
+
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/student")
@@ -36,6 +38,7 @@ public class StudentController {
     @CrossOrigin(origins = "*")
     @GetMapping
     public List<Student> getAllStudents() {
+
         return studentService.getAllStudents();
     }
 
@@ -97,3 +100,4 @@ public class StudentController {
         }
     }
 }
+
