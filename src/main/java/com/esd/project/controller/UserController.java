@@ -103,7 +103,7 @@ public class UserController {
         } else if (userService.deleteUser(userId) == 0) {
             message = "User with ID " + userId + " already deleted.";
             System.out.println(message);
-            return new ResponseEntity<>(message, HttpStatus.ACCEPTED);
+            return new ResponseEntity<>(message, HttpStatus.NOT_ACCEPTABLE);
         } else {
             message = "User with ID " + userId + " not found.";
             return ((BodyBuilder) ResponseEntity.notFound()).body(message);

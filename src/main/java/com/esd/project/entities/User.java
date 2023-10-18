@@ -60,6 +60,7 @@ public class User {
     }
 
     // CONFIRMPASSWORD---------CONFIRMPASSWORD------------CONFIRMPASSWORD------CONFIRMPASSWORD---------CONFIRMPASSWORD-----------
+
     @Transient
     private String confirmPassword;
 
@@ -88,6 +89,7 @@ public class User {
     }
 
     // STATUS---------STATUS--------------STATUS-----------STATUS-------------STATUS-----------------STATUS----------STATUS---------
+
     @Column(nullable = false, columnDefinition = "tinyint default 1")
     private int status = 1;
 
@@ -100,6 +102,7 @@ public class User {
     }
 
     // USER_UPDATED_AT--------------USER_UPDATED_AT------------USER_UPDATED_AT----------USER_UPDATED_AT----------USER_UPDATED_AT
+
     @UpdateTimestamp
     @Column(name = "updatedAt")
     private LocalDateTime updatedAt;
