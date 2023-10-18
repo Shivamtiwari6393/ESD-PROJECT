@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.esd.project.entities.Student;
 import com.esd.project.services.StudentService;
 
+
 import jakarta.servlet.http.HttpServletResponse;
 
 @RestController
@@ -98,15 +99,5 @@ public class StudentController {
             return new ResponseEntity<>(students, HttpStatus.OK);
         }
     }
-
-    @CrossOrigin(origins = "*")
-    @GetMapping("/modify-csp")
-    public String modifyCSP(HttpServletResponse response) {
-        // Set the CSP header in the response
-        response.setHeader("Content-Security-Policy",
-                "script-src 'self' 'unsafe-inline' 'unsafe-eval' http://localhost:8080;");
-
-        // Return a message indicating that the CSP has been modified
-        return "CSP modified successfully.";
-    }
 }
+
