@@ -20,8 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.esd.project.entities.Student;
 import com.esd.project.services.StudentService;
 
-import jakarta.servlet.http.HttpServletResponse;
-
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/student")
@@ -33,37 +31,36 @@ public class StudentController {
         this.studentService = studentService;
     }
 
-    // GET ALL STUDENTS ---------------------------------------------------
-    @CrossOrigin(origins = "*")
+    // 1. GET ALL STUDENTS ---------------------------------------------------
+
     @GetMapping
     public List<Student> getAllStudents() {
 
         return studentService.getAllStudents();
     }
 
-    // GET STUDENT BY ID--------------------------------------------------------
-    @CrossOrigin(origins = "*")
+    // 2. GET STUDENT BY ID--------------------------------------------------------
+
     @GetMapping("/{studentId}")
     public Optional<Student> getStudentById(@PathVariable Long studentId) {
         return studentService.getStudentById(studentId);
     }
 
-    // CREATE STUDENT------------------------------------------------------------
-    @CrossOrigin(origins = "*")
+    // 3. CREATE STUDENT------------------------------------------------------------
+
     @PostMapping
     public Student createStudent(@RequestBody Student student) {
         return studentService.createStudent(student);
     }
 
-    // UPDATE STUDENT-------------------------------------------------------------
-    @CrossOrigin(origins = "*")
+    // 4.UPDATE STUDENT-------------------------------------------------------------
     @PutMapping("/{studentId}")
     public Student updateStudent(@PathVariable Long studentId, @RequestBody Student updatedStudent) {
         return studentService.updateStudent(studentId, updatedStudent);
     }
 
-    // DELETE STUDENT--------------------------------------------------------------
-    @CrossOrigin(origins = "*")
+    // 5.DELETE_STUDENT--------------------------------------------------------------
+
     @DeleteMapping("/{studentId}")
     public ResponseEntity<String> deleteStudent(@PathVariable Long studentId) {
         String message;
@@ -83,8 +80,8 @@ public class StudentController {
 
     }
 
-    // GET STUDENT BY STATUS------------------------------------
-    @CrossOrigin(origins = "*")
+    // 6. GET STUDENT BY STATUS------------------------------------
+
     @GetMapping("/status/{status}")
     public ResponseEntity<?> getStudentsByStatus(@PathVariable int status) {
         List<Student> students = studentService.getStudentsByStatus(status);
@@ -99,14 +96,4 @@ public class StudentController {
         }
     }
 
-    @CrossOrigin(origins = "*")
-    @GetMapping("/modify-csp")
-    public String modifyCSP(HttpServletResponse response) {
-        // Set the CSP header in the response
-        response.setHeader("Content-Security-Policy",
-                "script-src 'self' 'unsafe-inline' 'unsafe-eval' http://localhost:8080;");
-
-        // Return a message indicating that the CSP has been modified
-        return "CSP modified successfully.";
-    }
 }

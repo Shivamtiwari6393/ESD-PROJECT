@@ -16,7 +16,7 @@ import jakarta.persistence.Table;
 @Table(name = "course")
 public class Course {
 
-    // COURSE ID---------------------------------------------------------
+    // 1.COURSE ID---------------------------------------------------------
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,7 +31,7 @@ public class Course {
         this.courseId = courseId;
     }
 
-    // COURSE NAME-------------------------------------------------------
+    // 2.COURSE NAME-------------------------------------------------------
 
     @Column(name = "course_name")
     private String courseName;
@@ -44,7 +44,7 @@ public class Course {
         this.courseName = courseName;
     }
 
-    // COURSE DESCRIPTION----------------------------------------------------
+    // 3.COURSE DESCRIPTION----------------------------------------------------
 
     @Column(name = "course_description")
     private String courseDescription;
@@ -57,7 +57,7 @@ public class Course {
         this.courseDescription = courseDescription;
     }
 
-    // STATUS--------------------------------------------------------
+    // 4.STATUS--------------------------------------------------------
 
     @Column(nullable = false, columnDefinition = "tinyint default 1")
     private int status = 1;
@@ -70,7 +70,7 @@ public class Course {
         this.status = status;
     }
 
-    // CREATED AT-----------------------------------------------------------------
+    // 5.CREATED AT-----------------------------------------------------------------
     @CreationTimestamp
     @Column(name = "created_at")
     private Date createdAt;
@@ -83,7 +83,7 @@ public class Course {
         return createdAt;
     }
 
-    // UPDATED AT-------------------------------------------------------------------
+    // 7.UPDATED_AT-------------------------------------------------------------------
     @UpdateTimestamp
     @Column(name = "updated_at")
     private Date updatedAt;

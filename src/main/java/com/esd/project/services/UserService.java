@@ -9,9 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.esd.project.UserRepository;
 import com.esd.project.dto.UserDTO;
 import com.esd.project.entities.User;
+import com.esd.project.repository.UserRepository;
 
 @Service
 public class UserService {
@@ -25,8 +25,9 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
+    // 1.REGISTER_USER--------------------------------------------------
+
     public String registerUser(User user) {
-        // Check if the username already exists in the database
 
         User existingUser = userRepository.findByUsername(user.getUsername());
 
@@ -34,11 +35,14 @@ public class UserService {
             return "username_exists";
         }
         // Password Hashing-------------------------------------------
+
         String hashedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(hashedPassword);
         userRepository.save(user);
         return "success";
     }
+
+    // 2.LOGIN_USER-------------------------------------------------------
 
     public String loginUser(String username, String password) {
 
@@ -54,7 +58,8 @@ public class UserService {
             return "login_failed";
         }
     }
-    // FIND ALL USER-------------------------------------
+
+    // 3.FIND ALL USER-------------------------------------
 
     public List<UserDTO> getAllUsers() {
         List<User> users = userRepository.findAll();
@@ -64,7 +69,7 @@ public class UserService {
     private List<UserDTO> convertUsersToDTOs(List<User> users) {
         List<UserDTO> userDTOs = new ArrayList<>();
         for (User user : users) {
-            UserDTO userDTO = new UserDTO(null, null, null, null);
+            UserDTO userDTO = new UserDTO();
             userDTO.setUserId(user.getUserId());
             userDTO.setUsername(user.getUsername());
             userDTO.setCreatedAt(user.getCreatedAt());
@@ -75,7 +80,7 @@ public class UserService {
         return userDTOs;
     }
 
-    // DELETE_USER----------DELETE_USER----------DELETE_USER----------DELETE_USER----------DELETE_USER----------DELETE_USER
+    // 4.DELETE_USER----------DELETE_USER----------DELETE_USER----------DELETE_USER----------DELETE_USER----------DELETE_USER
 
     public int deleteUser(Long userId) {
         User user = userRepository.findById(userId).orElse(null);
@@ -98,17 +103,23 @@ public class UserService {
         }
     }
 
-    // UPDATE_USER_PASSWORD----------UPDATE_USER_PASSWORD----------UPDATE_USER_PASSWORD----------UPDATE_USER_PASSWORD----------
+    // 5.UPDATE_USER_PASSWORD--------UPDATE_USER_PASSWORD--------UPDATE_USER_PASSWORD--------UPDATE_USER_PASSWORD--------UPDATE_USER_PASSWORD
 
-    public User updateUser(Long userId, User user) {
-        if (userRepository.existsById(userId)) {
-            user.setUserId(userId);
-            return userRepository.save(user);
+    public User updatePassword(Long userId, String newPassword) {
+        Optional<User> optionalUser = userRepository.findById(userId);
+
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            String hashedPassword = passwordEncoder.encode(newPassword);
+            user.setPassword(hashedPassword);
+            userRepository.save(user);
+            return user;
         }
+
         return null;
     }
 
-    // UPDATE_USER_STATUS-----------UPDATE_USER_STATUS------------UPDATE_USER_STATUS-----------UPDATE_USER_STATUS-------
+    // 6.UPDATE_USER_STATUS-----------UPDATE_USER_STATUS------------UPDATE_USER_STATUS-----------UPDATE_USER_STATUS-------
 
     public UserDTO updateUserStatus(Long userId, int newStatus) {
         Optional<User> optionalUser = userRepository.findById(userId);
@@ -124,7 +135,7 @@ public class UserService {
 
     }
 
-    // FIND_USER_BY_ID----------FIND_USER_BY_ID----------FIND_USER_BY_ID----------FIND_USER_BY_ID----------FIND_USER_BY_ID
+    // 7.FIND_USER_BY_ID----------FIND_USER_BY_ID----------FIND_USER_BY_ID----------FIND_USER_BY_ID----------FIND_USER_BY_ID
 
     public UserDTO getUserById(Long userId) {
         User user = userRepository.findById(userId).orElse(null);
@@ -135,7 +146,7 @@ public class UserService {
     }
 
     private UserDTO convertUserToDto(User user) {
-        UserDTO userDto = new UserDTO(null, null, null, null);
+        UserDTO userDto = new UserDTO();
         userDto.setUserId(user.getUserId());
         userDto.setUsername(user.getUsername());
         userDto.setCreatedAt(user.getCreatedAt());
@@ -144,22 +155,7 @@ public class UserService {
         return userDto;
     }
 
-    // UPDATE_USER_PASSWORD--------UPDATE_USER_PASSWORD--------UPDATE_USER_PASSWORD--------UPDATE_USER_PASSWORD--------UPDATE_USER_PASSWORD
-    public User updatePassword(Long userId, String newPassword) {
-        Optional<User> optionalUser = userRepository.findById(userId);
-
-        if (optionalUser.isPresent()) {
-            User user = optionalUser.get();
-            String hashedPassword = passwordEncoder.encode(newPassword);
-            user.setPassword(hashedPassword);
-            userRepository.save(user);
-            return user;
-        }
-
-        return null;
-    }
-
-    // GET_USER_BY_NAME---------GET_USER_BY_NAME-------------GET_USER_BY_NAME-----------GET_USER_BY_NAME
+    // 8.GET_USER_BY_NAME---------GET_USER_BY_NAME-------------GET_USER_BY_NAME-----------GET_USER_BY_NAME
 
     public UserDTO getUserByUsername(String username) {
         User user = userRepository.findByUsername(username);
@@ -170,7 +166,7 @@ public class UserService {
         return null;
     }
 
-    // GET_USER_BY_STATUS-------GET_USER_BY_STATUS------GET_USER_BY_STATUS---GET_USER_BY_STATUS
+    // 9.GET_USER_BY_STATUS-------GET_USER_BY_STATUS------GET_USER_BY_STATUS---GET_USER_BY_STATUS
 
     public List<UserDTO> getUsersByStatus(int status) {
         List<User> users = userRepository.findByStatus(status);

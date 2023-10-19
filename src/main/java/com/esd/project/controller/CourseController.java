@@ -30,36 +30,35 @@ public class CourseController {
         this.courseService = courseService;
     }
 
-    // FETCH ALL COURSE-------------------------------------------------------------
-    @CrossOrigin(origins = "*")
+    // 1. ALL_COURSE-------------------------------------------------------------
+
     @GetMapping
     public List<Course> getAllCourses() {
         return courseService.getAllCourses();
     }
 
-    // GET COURSE BY ID--------------------------------------------------
-    @CrossOrigin(origins = "*")
+    // 2.GET COURSE BY ID--------------------------------------------------
     @GetMapping("/{courseId}")
     public Course getCourseById(@PathVariable Long courseId) {
         return courseService.getCourseById(courseId);
     }
 
-    // CREATE COURSE-------------------------------------------------------------
-    @CrossOrigin(origins = "*")
+    // 3.CREATE COURSE-------------------------------------------------------------
+
     @PostMapping
     public Course createCourse(@RequestBody Course course) {
         return courseService.createCourse(course);
     }
 
-    // UPDATE COURSE-----------------------------------------------------
-    @CrossOrigin(origins = "*")
+    // 4.UPDATE COURSE-----------------------------------------------------
+
     @PutMapping("/{courseId}")
     public Course updateCourse(@PathVariable Long courseId, @RequestBody Course updatedCourse) {
         return courseService.updateCourse(courseId, updatedCourse);
     }
 
-    // DELETE COURSE-----------------------------------------------------
-    @CrossOrigin(origins = "*")
+    // 5.DELETE COURSE-----------------------------------------------------
+
     @DeleteMapping("/{courseId}")
     public ResponseEntity<String> deleteCourse(@PathVariable Long courseId) {
         String message;
@@ -78,8 +77,8 @@ public class CourseController {
         }
     }
 
-    // GET COURSES BY STATUS---------------------------------------------
-    @CrossOrigin(origins = "*")
+    // 6.GET COURSES BY STATUS---------------------------------------------
+
     @GetMapping("/status/{status}")
     public ResponseEntity<?> getCoursesByStatus(@PathVariable int status) {
         List<Course> course = courseService.getCoursesByStatus(status);

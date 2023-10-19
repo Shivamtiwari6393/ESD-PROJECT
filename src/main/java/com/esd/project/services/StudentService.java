@@ -6,8 +6,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.esd.project.StudentRepository;
 import com.esd.project.entities.Student;
+import com.esd.project.repository.StudentRepository;
 
 @Service
 public class StudentService {
@@ -18,26 +18,25 @@ public class StudentService {
         this.studentRepository = studentRepository;
     }
 
-    // ALL_STUDENTS----------------------------------------------------------
+    // 1. ALL_STUDENTS----------------------------------------------------------
 
     public List<Student> getAllStudents() {
         return studentRepository.findAll();
     }
 
-    // FIND STUDENT BY ID-----------------------------------------------
+    // 2. FIND STUDENT BY ID-----------------------------------------------
 
     public Optional<Student> getStudentById(Long studentId) {
         return studentRepository.findById(studentId);
     }
 
-    // CREATE
-    // STUDENT-------------------------------------------------------------------
+    // 3.CREATE_STUDENT-------------------------------------------------------------------
 
     public Student createStudent(Student student) {
         return studentRepository.save(student);
     }
 
-    // UPDATE STUDENT-----------------------------------------------------------
+    // 4.UPDATE STUDENT-----------------------------------------------------------
 
     public Student updateStudent(Long studentId, Student updatedStudent) {
         Optional<Student> existingStudent = studentRepository.findById(studentId);
@@ -50,7 +49,7 @@ public class StudentService {
         }
     }
 
-    // DELETE STUDENT----------------------------------------------------
+    // 5.DELETE STUDENT----------------------------------------------------
 
     public int deleteStudent(Long studentId) {
         Student student = studentRepository.findById(studentId).orElse(null);
@@ -74,7 +73,7 @@ public class StudentService {
 
     }
 
-    // FIND BY STATUS --------------------------------------
+    // 6.FIND BY STATUS --------------------------------------
 
     public List<Student> getStudentsByStatus(int status) {
         List<Student> student = studentRepository.findByStatus(status);
