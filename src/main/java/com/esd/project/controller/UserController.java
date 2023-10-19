@@ -40,10 +40,10 @@ public class UserController {
         String result = userService.registerUser(user);
 
         if ("success".equals(result)) {
-
+            System.out.println("registration successful");
             return ResponseEntity.ok("Registration successful");
         }
-
+        System.out.println("username already exist");
         return ResponseEntity.status(409).body("Username already exists");
 
     }
@@ -55,8 +55,10 @@ public class UserController {
             @RequestParam("password") String password) {
         String result = userService.loginUser(username, password);
         if ("success".equals(result)) {
+            System.out.println("loged in");
             return ResponseEntity.ok("Login successful");
         } else {
+            System.out.println("login failed");
             return ResponseEntity.badRequest().body("Login failed invalid username or password");
         }
     }
@@ -66,6 +68,7 @@ public class UserController {
     @GetMapping("/all")
     public ResponseEntity<List<UserDTO>> getAllUserInfo() {
         List<UserDTO> users = userService.getAllUsers();
+        System.out.println("returned the all user");
         return ResponseEntity.ok().body(users);
 
     }
@@ -78,16 +81,17 @@ public class UserController {
 
         if (userService.deleteUser(userId) == 1) {
             message = "User with ID " + userId + " has been deleted successfully.";
-
+            System.out.println(message);
             return new ResponseEntity<>(message, HttpStatus.ACCEPTED);
 
         } else if (userService.deleteUser(userId) == 0) {
             message = "User with ID " + userId + " already deleted.";
-
+            System.out.println(message);
             return new ResponseEntity<>(message, HttpStatus.NOT_ACCEPTABLE);
 
         } else {
             message = "User with ID " + userId + " not found.";
+            System.out.println(message);
             return ((BodyBuilder) ResponseEntity.notFound()).body(message);
         }
 

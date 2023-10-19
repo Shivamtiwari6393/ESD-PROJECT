@@ -112,6 +112,7 @@ public class UserService {
             User user = optionalUser.get();
             String hashedPassword = passwordEncoder.encode(newPassword);
             user.setPassword(hashedPassword);
+            System.out.println("updated user password ");
             userRepository.save(user);
             return user;
         }

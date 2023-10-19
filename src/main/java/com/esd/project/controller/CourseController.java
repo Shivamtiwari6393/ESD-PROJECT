@@ -65,11 +65,10 @@ public class CourseController {
 
         if (courseService.deleteCourse(courseId) == 1) {
             message = "Course with ID " + courseId + " has been deleted successfully.";
-            System.out.println(message);
+
             return new ResponseEntity<>(message, HttpStatus.ACCEPTED);
         } else if (courseService.deleteCourse(courseId) == 0) {
             message = "Course with ID " + courseId + " already deleted.";
-            System.out.println(message);
             return new ResponseEntity<>(message, HttpStatus.NOT_ACCEPTABLE);
         } else {
             message = "Course with ID " + courseId + " not found.";
@@ -86,8 +85,10 @@ public class CourseController {
         if (course.isEmpty()) {
 
             String message = "No course with status " + status + " found.";
+            System.out.println(message);
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
         } else {
+            System.out.println("return the course by status");
             return new ResponseEntity<>(course, HttpStatus.OK);
         }
     }
