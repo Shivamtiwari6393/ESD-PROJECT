@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.esd.project.entities.Student;
 import com.esd.project.services.StudentService;
 
+
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/student")
@@ -96,4 +97,5 @@ public class StudentController {
         }
     }
 
+}
 }
