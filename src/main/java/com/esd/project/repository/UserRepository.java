@@ -1,4 +1,4 @@
-package com.esd.project;
+package com.esd.project.repository;
 
 import java.util.List;
 

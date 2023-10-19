@@ -3,9 +3,6 @@ package com.esd.project.dto;
 import java.time.LocalDateTime;
 
 public class UserDTO {
-    public UserDTO(Long userId, String username, LocalDateTime createdAt, LocalDateTime updatedAt) {
-    }
-
     private Long userId;
 
     public Long getUserId() {

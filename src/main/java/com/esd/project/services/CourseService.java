@@ -3,8 +3,8 @@ package com.esd.project.services;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.esd.project.CourseRepository;
 import com.esd.project.entities.Course;
+import com.esd.project.repository.CourseRepository;
 
 @Service
 public class CourseService {
@@ -15,25 +15,25 @@ public class CourseService {
         this.courseRepository = courseRepository;
     }
 
-    // ALL USER ---------------------------------------------
+    // 1.ALL USER ---------------------------------------------
 
     public List<Course> getAllCourses() {
         return courseRepository.findAll();
     }
 
-    // GET COURSE BY ID -------------------------------------
+    // 2.GET COURSE BY ID -------------------------------------
 
     public Course getCourseById(Long courseId) {
         return courseRepository.findById(courseId).orElse(null);
     }
 
-    // CREATE COURSE---------------------------------------
+    // 3.CREATE COURSE---------------------------------------
 
     public Course createCourse(Course course) {
         return courseRepository.save(course);
     }
 
-    // UPDATE COURSE------------------------------------------------
+    // 4.UPDATE COURSE------------------------------------------------
 
     public Course updateCourse(Long courseId, Course updatedCourse) {
         Course existingCourse = courseRepository.findById(courseId).orElse(null);
@@ -49,7 +49,7 @@ public class CourseService {
         }
     }
 
-    // DELETE COURSE--------------------------------------------------
+    // 5.DELETE COURSE--------------------------------------------------
 
     public int deleteCourse(Long courseId) {
         Course course = courseRepository.findById(courseId).orElse(null);
@@ -72,7 +72,7 @@ public class CourseService {
         }
     }
 
-    // FIND BY STATUS -------------------------------------------------
+    // 6.FIND BY STATUS -------------------------------------------------
 
     public List<Course> getCoursesByStatus(int status) {
         List<Course> courses = courseRepository.findByStatus(status);
