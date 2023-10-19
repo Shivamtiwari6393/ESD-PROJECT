@@ -43,8 +43,10 @@ public class StudentService {
 
         if (existingStudent.isPresent()) {
             updatedStudent.setStudentId(existingStudent.get().getStudentId());
+            System.out.println("updated student");
             return studentRepository.save(updatedStudent);
         } else {
+            System.out.println("student not found");
             throw new IllegalArgumentException("Student not found");
         }
     }

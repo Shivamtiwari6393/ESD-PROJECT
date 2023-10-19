@@ -42,9 +42,10 @@ public class CourseService {
             existingCourse.setCourseName(updatedCourse.getCourseName());
             existingCourse.setCourseDescription(updatedCourse.getCourseDescription());
             // Save the updated course
-
+            System.out.println("updated course successfully");
             return courseRepository.save(existingCourse);
         } else {
+            System.out.println("course not found");
             throw new IllegalArgumentException("Course not found");
         }
     }

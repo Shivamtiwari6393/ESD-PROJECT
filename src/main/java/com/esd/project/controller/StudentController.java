@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.esd.project.entities.Student;
 import com.esd.project.services.StudentService;
 
-
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/student")
@@ -68,11 +67,9 @@ public class StudentController {
 
         if (studentService.deleteStudent(studentId) == 1) {
             message = "User with ID " + studentId + " has been deleted successfully.";
-            System.out.println(message);
             return new ResponseEntity<>(message, HttpStatus.ACCEPTED);
         } else if (studentService.deleteStudent(studentId) == 0) {
             message = "User with ID " + studentId + " already deleted.";
-            System.out.println(message);
             return new ResponseEntity<>(message, HttpStatus.NOT_ACCEPTABLE);
         } else {
             message = "User with ID " + studentId + " not found.";
@@ -90,13 +87,13 @@ public class StudentController {
         if (students.isEmpty()) {
             // If no users are found, return a custom message
             String message = "No users with status " + status + " found.";
+            System.out.println(message);
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
         } else {
             // If users are found, return the list of users
+            System.out.println("return the student by status");
             return new ResponseEntity<>(students, HttpStatus.OK);
         }
     }
 
-
-}
 }
