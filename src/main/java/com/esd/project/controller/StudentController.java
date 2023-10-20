@@ -49,14 +49,27 @@ public class StudentController {
     // 3. CREATE STUDENT------------------------------------------------------------
 
     @PostMapping
-    public Student createStudent(@RequestBody Student student) {
-        return studentService.createStudent(student);
+    public ResponseEntity<?> createStudent(@RequestBody Student student) {
+
+        Student createStudentResponse = studentService.createStudent(student);
+        if (createStudentResponse != null) {
+            return new ResponseEntity<>(createStudentResponse, HttpStatus.OK);
+
+        }
+        return new ResponseEntity<>("Email already exists", HttpStatus.CONFLICT);
     }
 
     // 4.UPDATE STUDENT-------------------------------------------------------------
     @PutMapping("/{studentId}")
-    public Student updateStudent(@PathVariable Long studentId, @RequestBody Student updatedStudent) {
-        return studentService.updateStudent(studentId, updatedStudent);
+    public ResponseEntity<?> updateStudent(@PathVariable Long studentId, @RequestBody Student updatedStudent) {
+        int result = studentService.updateStudent(studentId, updatedStudent);
+        if (result == 1) {
+            return ResponseEntity.ok("Student updated successfully.");
+        } else if (result == 2) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Student not found.");
+        } else {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Email already exists.");
+        }
     }
 
     // 5.DELETE_STUDENT--------------------------------------------------------------
