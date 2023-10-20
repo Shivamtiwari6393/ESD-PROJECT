@@ -5,7 +5,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 
@@ -15,7 +14,6 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
-@Table(name = "student")
 public class Student {
 
     // STUDENT ID------------------------------------------
@@ -34,7 +32,6 @@ public class Student {
 
     // STUDENT NAME ------------------------------------------------------
 
-    @Column(name = "studentName")
     private String studentName;
 
     public String getStudentName() {
@@ -47,7 +44,6 @@ public class Student {
 
     // PHONE NUMBER--------------------------------------------------------------
 
-    @Column(name = "phoneNumber")
     private String phoneNumber;
 
     public String getPhoneNumber() {
@@ -60,7 +56,6 @@ public class Student {
 
     // AGE ------------------------------------------------------
 
-    @Column(name = "age")
     private int age;
 
     public int getAge() {
@@ -72,7 +67,6 @@ public class Student {
     }
     // DATE OF BIRTH ------------------------------------------------
 
-    @Column(name = "date_of_birth")
     @Temporal(TemporalType.DATE)
     private Date dateOfBirth;
 
@@ -96,7 +90,7 @@ public class Student {
     }
     // EMAIL ------------------------------------------------------
 
-    @Column(name = "email", nullable = false, unique = true)
+    @Column(nullable = false, unique = true)
     private String email;
 
     public String getEmail() {
@@ -109,7 +103,6 @@ public class Student {
 
     // CITY ------------------------------------------------------
 
-    @Column(name = "city")
     private String city;
 
     public String getCity() {
@@ -122,7 +115,6 @@ public class Student {
 
     // PIN CODE ------------------------------------------------------
 
-    @Column(name = "pin_code")
     private String pinCode;
 
     public String getPinCode() {
@@ -135,7 +127,6 @@ public class Student {
 
     // STATE ------------------------------------------------------
 
-    @Column(name = "state")
     private String state;
 
     public String getState() {
@@ -174,7 +165,6 @@ public class Student {
     // CREATED AT----------------------------------------------------
 
     @CreationTimestamp
-    @Column(name = "created_at")
 
     private Date createdAt;
 
@@ -188,7 +178,6 @@ public class Student {
     // UPDATED AT--------------------------------------------------
 
     @UpdateTimestamp
-    @Column(name = "updated_at")
 
     private Date updatedAt;
 

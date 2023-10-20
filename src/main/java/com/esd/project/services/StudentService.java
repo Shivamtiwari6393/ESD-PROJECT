@@ -101,6 +101,12 @@ public class StudentService {
         List<Student> student = studentRepository.findByStatus(status);
         return student;
     }
+
+    // GET STUDENT BY EMAIL
+
+    public Student getStudentByEmail(String email) {
+        return studentRepository.findByEmail(email);
+    }
 }
 
 // ***************************************************************************************

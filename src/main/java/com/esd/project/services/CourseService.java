@@ -1,6 +1,8 @@
 package com.esd.project.services;
 
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.esd.project.entities.Course;
@@ -23,30 +25,39 @@ public class CourseService {
 
     // 2.GET COURSE BY ID -------------------------------------
 
-    public Course getCourseById(Long courseId) {
-        return courseRepository.findById(courseId).orElse(null);
+    public Optional<Course> getCourseById(Long courseId) {
+        return courseRepository.findById(courseId);
     }
 
     // 3.CREATE COURSE---------------------------------------
 
     public Course createCourse(Course course) {
+        Course existingCourse = courseRepository.findByCourseName(course.getCourseName());
+        if (existingCourse != null) {
+            return null;
+        }
         return courseRepository.save(course);
     }
 
     // 4.UPDATE COURSE------------------------------------------------
 
-    public Course updateCourse(Long courseId, Course updatedCourse) {
-        Course existingCourse = courseRepository.findById(courseId).orElse(null);
-        if (existingCourse != null) {
-            existingCourse.setCourseId(courseId);
-            existingCourse.setCourseName(updatedCourse.getCourseName());
-            existingCourse.setCourseDescription(updatedCourse.getCourseDescription());
-            // Save the updated course
-            System.out.println("updated course successfully");
-            return courseRepository.save(existingCourse);
+    public int updateCourse(Long courseId, Course updatedCourse) {
+        Optional<Course> existingCourse = courseRepository.findById(courseId);
+        Course existCourse = courseRepository.findByCourseName(updatedCourse.getCourseName());
+        if (existingCourse.isPresent()) {
+            if (existCourse != null && courseId != existCourse.getCourseId()) {
+                {
+                    // if course exist
+                    return 0;
+                }
+            }
+            updatedCourse.setCourseId(existingCourse.get().getCourseId());
+            courseRepository.save(updatedCourse);
+            // if updated then return 1
+            return 1;
         } else {
-            System.out.println("course not found");
-            throw new IllegalArgumentException("Course not found");
+            // if student not found return 2
+            return 2;
         }
     }
 

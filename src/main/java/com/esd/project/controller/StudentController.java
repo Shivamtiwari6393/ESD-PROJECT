@@ -6,7 +6,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.ResponseEntity.BodyBuilder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,16 +33,26 @@ public class StudentController {
     // 1. GET ALL STUDENTS ---------------------------------------------------
 
     @GetMapping
-    public List<Student> getAllStudents() {
-
-        return studentService.getAllStudents();
+    public ResponseEntity<?> getAllStudents() {
+        List<Student> students = studentService.getAllStudents();
+        if (students.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("STUDENTS NOT FOUND");
+        } else {
+            return ResponseEntity.status(HttpStatus.OK).body(students);
+        }
     }
 
     // 2. GET STUDENT BY ID--------------------------------------------------------
 
     @GetMapping("/{studentId}")
-    public Optional<Student> getStudentById(@PathVariable Long studentId) {
-        return studentService.getStudentById(studentId);
+    public ResponseEntity<?> getStudentById(@PathVariable Long studentId) {
+
+        Optional<Student> student = studentService.getStudentById(studentId);
+        if (student.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("STUDENT WITH ID " + studentId + " NOT FOUND");
+        } else {
+            return ResponseEntity.status(HttpStatus.OK).body(student);
+        }
     }
 
     // 3. CREATE STUDENT------------------------------------------------------------
@@ -53,40 +62,42 @@ public class StudentController {
 
         Student createStudentResponse = studentService.createStudent(student);
         if (createStudentResponse != null) {
-            return new ResponseEntity<>(createStudentResponse, HttpStatus.OK);
+            return ResponseEntity.status(HttpStatus.OK).body(createStudentResponse);
 
         }
-        return new ResponseEntity<>("Email already exists", HttpStatus.CONFLICT);
+        return ResponseEntity.status(HttpStatus.CONFLICT).body("Email - " + student.getEmail() + "already exists");
     }
 
     // 4.UPDATE STUDENT-------------------------------------------------------------
+
     @PutMapping("/{studentId}")
     public ResponseEntity<?> updateStudent(@PathVariable Long studentId, @RequestBody Student updatedStudent) {
         int result = studentService.updateStudent(studentId, updatedStudent);
         if (result == 1) {
-            return ResponseEntity.ok("Student updated successfully.");
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body("Student " + updatedStudent.getStudentName() + " updated successfully.");
         } else if (result == 2) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Student not found.");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Student with " + studentId + " not found.");
         } else {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("Email already exists.");
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body("Email-" + updatedStudent.getEmail() + " already exists.");
         }
     }
 
     // 5.DELETE_STUDENT--------------------------------------------------------------
 
     @DeleteMapping("/{studentId}")
-    public ResponseEntity<String> deleteStudent(@PathVariable Long studentId) {
-        String message;
+    public ResponseEntity<?> deleteStudent(@PathVariable Long studentId) {
 
         if (studentService.deleteStudent(studentId) == 1) {
-            message = "User with ID " + studentId + " has been deleted successfully.";
-            return new ResponseEntity<>(message, HttpStatus.ACCEPTED);
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body("User with ID " + studentId + " has been deleted successfully.");
         } else if (studentService.deleteStudent(studentId) == 0) {
-            message = "User with ID " + studentId + " already deleted.";
-            return new ResponseEntity<>(message, HttpStatus.NOT_ACCEPTABLE);
+
+            return new ResponseEntity<>("User with ID " + studentId + " already deleted.", HttpStatus.NOT_ACCEPTABLE);
         } else {
-            message = "User with ID " + studentId + " not found.";
-            return ((BodyBuilder) ResponseEntity.notFound()).body(message);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("STUDENT with " + studentId + " NOT FOUND");
+
         }
 
     }
@@ -98,14 +109,24 @@ public class StudentController {
         List<Student> students = studentService.getStudentsByStatus(status);
 
         if (students.isEmpty()) {
-            // If no users are found, return a custom message
-            String message = "No users with status " + status + " found.";
-            System.out.println(message);
-            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("STUDENTS with " + status + " NOT FOUND");
+
         } else {
-            // If users are found, return the list of users
-            System.out.println("return the student by status");
-            return new ResponseEntity<>(students, HttpStatus.OK);
+
+            return ResponseEntity.status(HttpStatus.OK).body(students);
+        }
+    }
+
+    // GET STUDENT BY EMAIL-------------------------------------------
+
+    @GetMapping("/email/{email}")
+    public ResponseEntity<?> getStudentByEmail(@PathVariable String email) {
+        Student student = studentService.getStudentByEmail(email);
+        if (student != null) {
+            return ResponseEntity.status(HttpStatus.OK).body(student);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("STUDENT with " + email + " NOT FOUND");
         }
     }
 

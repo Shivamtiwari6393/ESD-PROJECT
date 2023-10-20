@@ -61,7 +61,6 @@ public class User {
     // USER_CREATED_AT----------USER_CREATED_AT--------------USER_CREATED_AT-------------USER_CREATED_AT-----------USER_CREATED_AT---------
 
     @CreationTimestamp
-    @Column(name = "createdAt")
     private LocalDateTime CreatedAt;
 
     public LocalDateTime getCreatedAt() {
@@ -88,7 +87,6 @@ public class User {
     // USER_UPDATED_AT--------------USER_UPDATED_AT------------USER_UPDATED_AT----------USER_UPDATED_AT----------USER_UPDATED_AT
 
     @UpdateTimestamp
-    @Column(name = "updatedAt")
     private LocalDateTime updatedAt;
 
     public LocalDateTime getUpdatedAt() {
