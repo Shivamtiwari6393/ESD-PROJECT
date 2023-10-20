@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.esd.project.dto.UserDTO;
@@ -54,16 +53,17 @@ public class UserController {
     // 2.LOGIN---------- LOGIN------- LOGIN ---------LOGIN--------- LOGIN-----------
 
     @PostMapping("/login")
-    public ResponseEntity<?> loginUser(@RequestParam("username") String username,
-            @RequestParam("password") String password) {
-        String result = userService.loginUser(username, password);
+    public ResponseEntity<?> loginUser(@RequestBody User user) {
+        String result = userService.loginUser(user);
         if ("success".equals(result)) {
             System.out.println("loged in");
-            Student student = studentRepository.findByEmail(username);
+            System.out.println(user.getUsername());
+            System.out.println(studentRepository.findByEmail(user.getUsername()));
+            Student student = studentRepository.findByEmail(user.getUsername());
             if (student != null) {
                 return ResponseEntity.status(HttpStatus.OK).body(student);
             }
-            return ResponseEntity.status(HttpStatus.OK).body(username);
+            return ResponseEntity.status(HttpStatus.OK).body(user.getUsername());
         } else {
             System.out.println("login failed");
             return ResponseEntity.badRequest().body("Login failed invalid username or password");

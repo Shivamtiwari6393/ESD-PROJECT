@@ -105,6 +105,8 @@ public class StudentService {
     // GET STUDENT BY EMAIL
 
     public Student getStudentByEmail(String email) {
+        System.err.println("in service");
+        System.out.println(email);
         return studentRepository.findByEmail(email);
     }
 

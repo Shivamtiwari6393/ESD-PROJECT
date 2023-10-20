@@ -120,13 +120,16 @@ public class StudentController {
 
     // GET STUDENT BY EMAIL-------------------------------------------
 
-    @GetMapping("/email/{email}")
+    @GetMapping("/email")
     public ResponseEntity<?> getStudentByEmail(@PathVariable String email) {
+        System.out.println("incontroller");
+        System.out.println(email);
+        System.out.println(studentService.getStudentByEmail(email));
         Student student = studentService.getStudentByEmail(email);
         if (student != null) {
             return ResponseEntity.status(HttpStatus.OK).body(student);
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("STUDENT with " + email + " NOT FOUND");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("STUDENT with Email " + email + " NOT FOUND");
         }
     }
 
