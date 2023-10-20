@@ -39,7 +39,7 @@ public class UserController {
     // 1. REGISTRATION---REGISTRATION------------REGISTRATION---------REGISTRATION
 
     @PostMapping("/registration")
-    public ResponseEntity<?> registerUser(User user) {
+    public ResponseEntity<?> registerUser(@RequestBody User user) {
         String result = userService.registerUser(user);
 
         if ("success".equals(result)) {

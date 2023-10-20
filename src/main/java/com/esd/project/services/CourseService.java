@@ -90,5 +90,11 @@ public class CourseService {
         List<Course> courses = courseRepository.findByStatus(status);
         return courses;
     }
+
+    // GET COURSE BY NAME
+
+    public Course getCourseByName(String courseName) {
+        return courseRepository.findByCourseName(courseName);
+    }
 }
 // ***********************************************************************************

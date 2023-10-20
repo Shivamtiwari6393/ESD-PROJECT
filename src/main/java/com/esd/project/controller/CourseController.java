@@ -114,4 +114,16 @@ public class CourseController {
             return ResponseEntity.status(HttpStatus.OK).body(course);
         }
     }
+
+    // GET COURSE BY NAME
+
+    @GetMapping("/find/{courseName}")
+    public ResponseEntity<?> getCourseByName(@PathVariable String courseName) {
+        Course course = courseService.getCourseByName(courseName);
+        if (course != null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Course -  " + courseName + " NOT FOUND");
+        } else {
+            return ResponseEntity.status(HttpStatus.OK).body(course);
+        }
+    }
 }

@@ -107,6 +107,12 @@ public class StudentService {
     public Student getStudentByEmail(String email) {
         return studentRepository.findByEmail(email);
     }
+
+    // // GET STUDENT BY NAME --------------------
+
+    // public Student getStudentByName(String studentName) {
+    // return studentRepository.findByStudentByName(studentName);
+    // }
 }
 
 // ***************************************************************************************
