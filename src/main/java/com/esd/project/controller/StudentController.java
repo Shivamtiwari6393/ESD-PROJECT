@@ -130,17 +130,4 @@ public class StudentController {
         }
     }
 
-    // // FIND STUDENT BY NAME
-
-    // @GetMapping("/find/{studentName}")
-    // public ResponseEntity<?> getCourseByName(@PathVariable String studentName) {
-    // Student student = studentService.getStudentByName(studentName);
-    // if (student != null) {
-    // return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Student - " +
-    // studentName + " NOT FOUND");
-    // } else {
-    // return ResponseEntity.status(HttpStatus.OK).body(student);
-    // }
-    // }
-
 }
