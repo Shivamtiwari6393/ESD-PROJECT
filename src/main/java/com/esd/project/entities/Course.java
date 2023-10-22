@@ -10,17 +10,14 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "course")
 public class Course {
 
     // 1.COURSE ID---------------------------------------------------------
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "course_id")
     private Long courseId;
 
     public Long getCourseId() {
@@ -33,7 +30,7 @@ public class Course {
 
     // 2.COURSE NAME-------------------------------------------------------
 
-    @Column(name = "course_name")
+    @Column(nullable = false, unique = true, length = 50)
     private String courseName;
 
     public String getCourseName() {
@@ -45,8 +42,7 @@ public class Course {
     }
 
     // 3.COURSE DESCRIPTION----------------------------------------------------
-
-    @Column(name = "course_description")
+    @Column(length = 50)
     private String courseDescription;
 
     public String getCourseDescription() {
@@ -71,21 +67,18 @@ public class Course {
     }
 
     // 5.CREATED AT-----------------------------------------------------------------
-    @CreationTimestamp
-    @Column(name = "created_at")
-    private Date createdAt;
 
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
+    @CreationTimestamp
+    @Column(nullable = false, updatable = false)
+    private Date createdAt;
 
     public Date getCreatedAt() {
         return createdAt;
     }
 
     // 7.UPDATED_AT-------------------------------------------------------------------
+
     @UpdateTimestamp
-    @Column(name = "updated_at")
     private Date updatedAt;
 
     public void setUpdatedAt(Date updatedAt) {

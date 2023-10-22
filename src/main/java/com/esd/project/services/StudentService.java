@@ -33,21 +33,45 @@ public class StudentService {
     // 3.CREATE_STUDENT-------------------------------------------------------------------
 
     public Student createStudent(Student student) {
-        return studentRepository.save(student);
+        System.out.println(student.getEmail());
+        Student existingStudent = studentRepository.findByEmail(student.getEmail());
+
+        if (existingStudent != null) {
+            {
+                System.out.println(existingStudent.getEmail());
+                System.out.println(existingStudent.getEmail().equals(student.getEmail()));
+                return null;
+            }
+        } else {
+            return studentRepository.save(student);
+        }
+
     }
 
     // 4.UPDATE STUDENT-----------------------------------------------------------
 
-    public Student updateStudent(Long studentId, Student updatedStudent) {
-        Optional<Student> existingStudent = studentRepository.findById(studentId);
+    public int updateStudent(Long studentId, Student updatedStudent) {
 
+        Optional<Student> existingStudent = studentRepository.findById(studentId);
+        System.out.println(updatedStudent.getStudentName());
+        System.out.println(updatedStudent.getPinCode());
+        System.out.println(updatedStudent.getCity());
+        System.out.println(updatedStudent.getEmail());
+        Student existStudent = studentRepository.findByEmail(updatedStudent.getEmail());
         if (existingStudent.isPresent()) {
+            if (existStudent != null && studentId != existStudent.getStudentId()) {
+                {
+                    // if email exist
+                    return 0;
+                }
+            }
             updatedStudent.setStudentId(existingStudent.get().getStudentId());
-            System.out.println("updated student");
-            return studentRepository.save(updatedStudent);
+            studentRepository.save(updatedStudent);
+            // if updated then return 1
+            return 1;
         } else {
-            System.out.println("student not found");
-            throw new IllegalArgumentException("Student not found");
+            // if student not found return 2
+            return 2;
         }
     }
 
@@ -81,6 +105,20 @@ public class StudentService {
         List<Student> student = studentRepository.findByStatus(status);
         return student;
     }
+
+    // GET STUDENT BY EMAIL
+
+    public Student getStudentByEmail(String email) {
+        System.err.println("in service");
+        System.out.println(email);
+        return studentRepository.findByEmail(email);
+    }
+
+    // // GET STUDENT BY NAME --------------------
+
+    // public Student getStudentByName(String studentName) {
+    // return studentRepository.findByStudentByName(studentName);
+    // }
 }
 
 // ***************************************************************************************

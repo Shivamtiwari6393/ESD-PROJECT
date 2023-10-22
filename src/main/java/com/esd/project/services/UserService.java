@@ -44,13 +44,13 @@ public class UserService {
 
     // 2.LOGIN_USER-------------------------------------------------------
 
-    public String loginUser(String username, String password) {
-
-        User existingUser = userRepository.findByUsername(username);
-
-        if (existingUser != null && passwordEncoder.matches(password, existingUser.getPassword())) {
+    public String loginUser(User user) {
+        System.out.println(user.getUsername());
+        User existingUser = userRepository.findByUsername(user.getUsername());
+        System.out.println(existingUser);
+        System.out.println(user.getUsername());
+        if (existingUser != null && passwordEncoder.matches(user.getPassword(), existingUser.getPassword())) {
             // Successful login
-
             return "success";
         } else {
             // Login failed
@@ -110,6 +110,7 @@ public class UserService {
 
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
+            System.out.println(newPassword);
             String hashedPassword = passwordEncoder.encode(newPassword);
             user.setPassword(hashedPassword);
             System.out.println("updated user password ");

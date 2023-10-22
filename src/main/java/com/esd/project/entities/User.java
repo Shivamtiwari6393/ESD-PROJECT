@@ -30,7 +30,7 @@ public class User {
     }
     // USERNAME-------------- USERNAME-------USERNAME------------USERNAME--------
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true, length = 50)
     private String username;
 
     public String getUsername() {
@@ -61,20 +61,16 @@ public class User {
     // USER_CREATED_AT----------USER_CREATED_AT--------------USER_CREATED_AT-------------USER_CREATED_AT-----------USER_CREATED_AT---------
 
     @CreationTimestamp
-    @Column(name = "createdAt")
+    @Column(nullable = false, updatable = false)
     private LocalDateTime CreatedAt;
 
     public LocalDateTime getCreatedAt() {
         return CreatedAt;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
-        CreatedAt = createdAt;
-    }
-
     // STATUS---------STATUS--------------STATUS-----------STATUS-------------STATUS-----------------STATUS----------STATUS---------
 
-    @Column(nullable = false, columnDefinition = "tinyint default 1")
+    @Column(nullable = false, columnDefinition = "tinyint default 1", length = 2)
     private int status = 1;
 
     public int getStatus() {
@@ -88,7 +84,6 @@ public class User {
     // USER_UPDATED_AT--------------USER_UPDATED_AT------------USER_UPDATED_AT----------USER_UPDATED_AT----------USER_UPDATED_AT
 
     @UpdateTimestamp
-    @Column(name = "updatedAt")
     private LocalDateTime updatedAt;
 
     public LocalDateTime getUpdatedAt() {

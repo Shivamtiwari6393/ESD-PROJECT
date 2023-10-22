@@ -1,11 +1,11 @@
 package com.esd.project.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.ResponseEntity.BodyBuilder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,46 +33,73 @@ public class CourseController {
     // 1. ALL_COURSE-------------------------------------------------------------
 
     @GetMapping
-    public List<Course> getAllCourses() {
-        return courseService.getAllCourses();
+    public ResponseEntity<?> getAllCourses() {
+        List<Course> courses = courseService.getAllCourses();
+        if (courses.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(" NO COURSE FOUND");
+        } else {
+            return ResponseEntity.status(HttpStatus.OK).body(courses);
+        }
     }
 
     // 2.GET COURSE BY ID--------------------------------------------------
+
     @GetMapping("/{courseId}")
-    public Course getCourseById(@PathVariable Long courseId) {
-        return courseService.getCourseById(courseId);
+    public ResponseEntity<?> getCourseById(@PathVariable Long courseId) {
+        Optional<Course> course = courseService.getCourseById(courseId);
+        if (course.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(" NO COURSE FOUND");
+        } else {
+            return ResponseEntity.status(HttpStatus.OK).body(course);
+        }
     }
 
     // 3.CREATE COURSE-------------------------------------------------------------
 
     @PostMapping
-    public Course createCourse(@RequestBody Course course) {
-        return courseService.createCourse(course);
+    public ResponseEntity<?> createCourse(@RequestBody Course course) {
+
+        Course createdcourse = courseService.createCourse(course);
+        System.out.println(createdcourse);
+        if (createdcourse != null) {
+            return ResponseEntity.status(HttpStatus.OK).body(createdcourse);
+
+        } else {
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body("COURSE with the name " + course.getCourseName() + " already exist");
+        }
+
     }
 
     // 4.UPDATE COURSE-----------------------------------------------------
 
     @PutMapping("/{courseId}")
-    public Course updateCourse(@PathVariable Long courseId, @RequestBody Course updatedCourse) {
-        return courseService.updateCourse(courseId, updatedCourse);
+    public ResponseEntity<?> updateCourse(@PathVariable Long courseId, @RequestBody Course updatedCourse) {
+        int result = courseService.updateCourse(courseId, updatedCourse);
+        if (result == 1) {
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body("Course " + updatedCourse.getCourseName() + " updated successfully.");
+        } else if (result == 2) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Course with " + courseId + " not found.");
+        } else {
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body("Course-" + updatedCourse.getCourseName() + " already exists.");
+        }
     }
 
     // 5.DELETE COURSE-----------------------------------------------------
 
     @DeleteMapping("/{courseId}")
-    public ResponseEntity<String> deleteCourse(@PathVariable Long courseId) {
-        String message;
+    public ResponseEntity<?> deleteCourse(@PathVariable Long courseId) {
 
         if (courseService.deleteCourse(courseId) == 1) {
-            message = "Course with ID " + courseId + " has been deleted successfully.";
-
-            return new ResponseEntity<>(message, HttpStatus.ACCEPTED);
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body("Course with ID " + courseId + " has been deleted successfully.");
         } else if (courseService.deleteCourse(courseId) == 0) {
-            message = "Course with ID " + courseId + " already deleted.";
-            return new ResponseEntity<>(message, HttpStatus.NOT_ACCEPTABLE);
+
+            return new ResponseEntity<>("Course with ID " + courseId + " already deleted.", HttpStatus.NOT_ACCEPTABLE);
         } else {
-            message = "Course with ID " + courseId + " not found.";
-            return ((BodyBuilder) ResponseEntity.notFound()).body(message);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("course with " + courseId + " NOT FOUND");
         }
     }
 
@@ -83,13 +110,21 @@ public class CourseController {
         List<Course> course = courseService.getCoursesByStatus(status);
 
         if (course.isEmpty()) {
-
-            String message = "No course with status " + status + " found.";
-            System.out.println(message);
-            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("courses with " + status + " NOT FOUND");
         } else {
-            System.out.println("return the course by status");
-            return new ResponseEntity<>(course, HttpStatus.OK);
+            return ResponseEntity.status(HttpStatus.OK).body(course);
+        }
+    }
+
+    // GET COURSE BY NAME
+
+    @GetMapping("/find/{courseName}")
+    public ResponseEntity<?> getCourseByName(@PathVariable String courseName) {
+        Course course = courseService.getCourseByName(courseName);
+        if (course != null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Course -  " + courseName + " NOT FOUND");
+        } else {
+            return ResponseEntity.status(HttpStatus.OK).body(course);
         }
     }
 }

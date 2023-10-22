@@ -5,7 +5,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 
@@ -15,7 +14,6 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
-@Table(name = "student")
 public class Student {
 
     // STUDENT ID------------------------------------------
@@ -33,8 +31,7 @@ public class Student {
     }
 
     // STUDENT NAME ------------------------------------------------------
-
-    @Column(name = "studentName")
+    @Column(length = 50)
     private String studentName;
 
     public String getStudentName() {
@@ -46,8 +43,7 @@ public class Student {
     }
 
     // PHONE NUMBER--------------------------------------------------------------
-
-    @Column(name = "phoneNumber")
+    @Column(length = 15)
     private String phoneNumber;
 
     public String getPhoneNumber() {
@@ -58,21 +54,8 @@ public class Student {
         this.phoneNumber = phoneNumber;
     }
 
-    // AGE ------------------------------------------------------
-
-    @Column(name = "age")
-    private int age;
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
     // DATE OF BIRTH ------------------------------------------------
 
-    @Column(name = "date_of_birth")
     @Temporal(TemporalType.DATE)
     private Date dateOfBirth;
 
@@ -87,6 +70,7 @@ public class Student {
 
     private String address;
 
+    @Column(length = 100)
     public String getAddress() {
         return address;
     }
@@ -94,9 +78,10 @@ public class Student {
     public void setAddress(String address) {
         this.address = address;
     }
+
     // EMAIL ------------------------------------------------------
 
-    @Column(name = "email")
+    @Column(nullable = false, unique = true, length = 50)
     private String email;
 
     public String getEmail() {
@@ -109,7 +94,7 @@ public class Student {
 
     // CITY ------------------------------------------------------
 
-    @Column(name = "city")
+    @Column(length = 20)
     private String city;
 
     public String getCity() {
@@ -121,21 +106,19 @@ public class Student {
     }
 
     // PIN CODE ------------------------------------------------------
+    @Column(length = 10)
+    private int pinCode;
 
-    @Column(name = "pin_code")
-    private String pinCode;
-
-    public String getPinCode() {
+    public int getPinCode() {
         return pinCode;
     }
 
-    public void setPinCode(String pinCode) {
+    public void setPinCode(int pinCode) {
         this.pinCode = pinCode;
     }
 
     // STATE ------------------------------------------------------
-
-    @Column(name = "state")
+    @Column(length = 10)
     private String state;
 
     public String getState() {
@@ -146,8 +129,20 @@ public class Student {
         this.state = state;
     }
 
-    // COURSE------------------------------------------------------------
+    // GENDER------------------
+    @Column(length = 10)
+    private String gender;
 
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    // COURSE------------------------------------------------------------
+    @Column(length = 50)
     private String course;
 
     public String getCourse() {
@@ -174,21 +169,16 @@ public class Student {
     // CREATED AT----------------------------------------------------
 
     @CreationTimestamp
-    @Column(name = "created_at")
-
+    @Column(nullable = false, updatable = false)
     private Date createdAt;
 
     public Date getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
     // UPDATED AT--------------------------------------------------
 
     @UpdateTimestamp
-    @Column(name = "updated_at")
 
     private Date updatedAt;
 
