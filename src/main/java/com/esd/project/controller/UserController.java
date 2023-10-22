@@ -108,6 +108,7 @@ public class UserController {
 
     @PutMapping("/{userId}/updatepassword")
     public ResponseEntity<?> updatePassword(@PathVariable Long userId, @RequestBody String newPassword) {
+        System.out.println(newPassword);
         User updatedUser = userService.updatePassword(userId, newPassword);
 
         if (updatedUser != null) {

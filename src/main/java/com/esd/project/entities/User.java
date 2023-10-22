@@ -30,7 +30,7 @@ public class User {
     }
     // USERNAME-------------- USERNAME-------USERNAME------------USERNAME--------
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true, length = 50)
     private String username;
 
     public String getUsername() {
@@ -70,7 +70,7 @@ public class User {
 
     // STATUS---------STATUS--------------STATUS-----------STATUS-------------STATUS-----------------STATUS----------STATUS---------
 
-    @Column(nullable = false, columnDefinition = "tinyint default 1")
+    @Column(nullable = false, columnDefinition = "tinyint default 1", length = 2)
     private int status = 1;
 
     public int getStatus() {

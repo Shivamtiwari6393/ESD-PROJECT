@@ -30,7 +30,7 @@ public class Course {
 
     // 2.COURSE NAME-------------------------------------------------------
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true, length = 50)
     private String courseName;
 
     public String getCourseName() {
@@ -42,7 +42,7 @@ public class Course {
     }
 
     // 3.COURSE DESCRIPTION----------------------------------------------------
-
+    @Column(length = 50)
     private String courseDescription;
 
     public String getCourseDescription() {
@@ -67,6 +67,7 @@ public class Course {
     }
 
     // 5.CREATED AT-----------------------------------------------------------------
+
     @CreationTimestamp
     @Column(nullable = false, updatable = false)
     private Date createdAt;
@@ -76,6 +77,7 @@ public class Course {
     }
 
     // 7.UPDATED_AT-------------------------------------------------------------------
+
     @UpdateTimestamp
     private Date updatedAt;
 

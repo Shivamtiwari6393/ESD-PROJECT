@@ -31,7 +31,7 @@ public class Student {
     }
 
     // STUDENT NAME ------------------------------------------------------
-
+    @Column(length = 50)
     private String studentName;
 
     public String getStudentName() {
@@ -43,7 +43,7 @@ public class Student {
     }
 
     // PHONE NUMBER--------------------------------------------------------------
-
+    @Column(length = 15)
     private String phoneNumber;
 
     public String getPhoneNumber() {
@@ -70,6 +70,7 @@ public class Student {
 
     private String address;
 
+    @Column(length = 100)
     public String getAddress() {
         return address;
     }
@@ -77,9 +78,10 @@ public class Student {
     public void setAddress(String address) {
         this.address = address;
     }
+
     // EMAIL ------------------------------------------------------
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true, length = 50)
     private String email;
 
     public String getEmail() {
@@ -92,6 +94,7 @@ public class Student {
 
     // CITY ------------------------------------------------------
 
+    @Column(length = 20)
     private String city;
 
     public String getCity() {
@@ -103,7 +106,7 @@ public class Student {
     }
 
     // PIN CODE ------------------------------------------------------
-
+    @Column(length = 10)
     private int pinCode;
 
     public int getPinCode() {
@@ -115,7 +118,7 @@ public class Student {
     }
 
     // STATE ------------------------------------------------------
-
+    @Column(length = 10)
     private String state;
 
     public String getState() {
@@ -127,7 +130,7 @@ public class Student {
     }
 
     // GENDER------------------
-
+    @Column(length = 10)
     private String gender;
 
     public String getGender() {
@@ -137,8 +140,9 @@ public class Student {
     public void setGender(String gender) {
         this.gender = gender;
     }
-    // COURSE------------------------------------------------------------
 
+    // COURSE------------------------------------------------------------
+    @Column(length = 50)
     private String course;
 
     public String getCourse() {

@@ -69,7 +69,6 @@ public class StudentController {
     }
 
     // 4.UPDATE STUDENT-------------------------------------------------------------
-    @CrossOrigin(origins = "*")
     @PutMapping("/{studentId}")
     public ResponseEntity<?> updateStudent(@PathVariable Long studentId, @RequestBody Student updatedStudent) {
         System.out.println(studentId);
@@ -125,7 +124,6 @@ public class StudentController {
     @GetMapping("/email")
     public ResponseEntity<?> getStudentByEmail(@PathVariable String email) {
         System.out.println("incontroller");
-        System.out.println(email);
         System.out.println(studentService.getStudentByEmail(email));
         Student student = studentService.getStudentByEmail(email);
         if (student != null) {

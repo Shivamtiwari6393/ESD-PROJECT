@@ -110,6 +110,7 @@ public class UserService {
 
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
+            System.out.println(newPassword);
             String hashedPassword = passwordEncoder.encode(newPassword);
             user.setPassword(hashedPassword);
             System.out.println("updated user password ");
