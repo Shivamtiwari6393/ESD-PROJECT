@@ -33,9 +33,11 @@ public class CourseService {
 
     public Course createCourse(Course course) {
         Course existingCourse = courseRepository.findByCourseName(course.getCourseName());
+        System.out.println(existingCourse);
         if (existingCourse != null) {
             return null;
         }
+        System.out.println("saved");
         return courseRepository.save(course);
     }
 

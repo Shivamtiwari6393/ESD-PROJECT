@@ -60,12 +60,13 @@ public class CourseController {
     public ResponseEntity<?> createCourse(@RequestBody Course course) {
 
         Course createdcourse = courseService.createCourse(course);
+        System.out.println(createdcourse);
         if (createdcourse != null) {
             return ResponseEntity.status(HttpStatus.OK).body(createdcourse);
 
         } else {
             return ResponseEntity.status(HttpStatus.CONFLICT)
-                    .body("COURSE with the name" + course.getCourseName() + " already exist");
+                    .body("COURSE with the name " + course.getCourseName() + " already exist");
         }
 
     }

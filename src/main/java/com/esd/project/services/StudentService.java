@@ -53,6 +53,10 @@ public class StudentService {
     public int updateStudent(Long studentId, Student updatedStudent) {
 
         Optional<Student> existingStudent = studentRepository.findById(studentId);
+        System.out.println(updatedStudent.getStudentName());
+        System.out.println(updatedStudent.getPinCode());
+        System.out.println(updatedStudent.getCity());
+        System.out.println(updatedStudent.getEmail());
         Student existStudent = studentRepository.findByEmail(updatedStudent.getEmail());
         if (existingStudent.isPresent()) {
             if (existStudent != null && studentId != existStudent.getStudentId()) {

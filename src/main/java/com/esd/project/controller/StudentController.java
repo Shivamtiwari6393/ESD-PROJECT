@@ -69,9 +69,10 @@ public class StudentController {
     }
 
     // 4.UPDATE STUDENT-------------------------------------------------------------
-
+    @CrossOrigin(origins = "*")
     @PutMapping("/{studentId}")
     public ResponseEntity<?> updateStudent(@PathVariable Long studentId, @RequestBody Student updatedStudent) {
+        System.out.println(studentId);
         int result = studentService.updateStudent(studentId, updatedStudent);
         if (result == 1) {
             return ResponseEntity.status(HttpStatus.OK)
@@ -87,6 +88,7 @@ public class StudentController {
     // 5.DELETE_STUDENT--------------------------------------------------------------
 
     @DeleteMapping("/{studentId}")
+
     public ResponseEntity<?> deleteStudent(@PathVariable Long studentId) {
 
         if (studentService.deleteStudent(studentId) == 1) {

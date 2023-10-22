@@ -61,14 +61,11 @@ public class User {
     // USER_CREATED_AT----------USER_CREATED_AT--------------USER_CREATED_AT-------------USER_CREATED_AT-----------USER_CREATED_AT---------
 
     @CreationTimestamp
+    @Column(nullable = false, updatable = false)
     private LocalDateTime CreatedAt;
 
     public LocalDateTime getCreatedAt() {
         return CreatedAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        CreatedAt = createdAt;
     }
 
     // STATUS---------STATUS--------------STATUS-----------STATUS-------------STATUS-----------------STATUS----------STATUS---------

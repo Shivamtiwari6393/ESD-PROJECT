@@ -68,12 +68,8 @@ public class Course {
 
     // 5.CREATED AT-----------------------------------------------------------------
     @CreationTimestamp
-
+    @Column(nullable = false, updatable = false)
     private Date createdAt;
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
 
     public Date getCreatedAt() {
         return createdAt;

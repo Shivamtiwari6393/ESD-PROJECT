@@ -54,17 +54,6 @@ public class Student {
         this.phoneNumber = phoneNumber;
     }
 
-    // AGE ------------------------------------------------------
-
-    private int age;
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
     // DATE OF BIRTH ------------------------------------------------
 
     @Temporal(TemporalType.DATE)
@@ -115,13 +104,13 @@ public class Student {
 
     // PIN CODE ------------------------------------------------------
 
-    private String pinCode;
+    private int pinCode;
 
-    public String getPinCode() {
+    public int getPinCode() {
         return pinCode;
     }
 
-    public void setPinCode(String pinCode) {
+    public void setPinCode(int pinCode) {
         this.pinCode = pinCode;
     }
 
@@ -137,6 +126,17 @@ public class Student {
         this.state = state;
     }
 
+    // GENDER------------------
+
+    private String gender;
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
     // COURSE------------------------------------------------------------
 
     private String course;
@@ -165,16 +165,13 @@ public class Student {
     // CREATED AT----------------------------------------------------
 
     @CreationTimestamp
-
+    @Column(nullable = false, updatable = false)
     private Date createdAt;
 
     public Date getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
     // UPDATED AT--------------------------------------------------
 
     @UpdateTimestamp
