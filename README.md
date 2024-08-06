@@ -15,8 +15,6 @@ This project is a backend application built using Spring Boot, designed to manag
   - [Student Endpoints](#student-endpoints)
   - [User Endpoints](#user-endpoints)
 - [Usage](#usage)
-- [Contributing](#contributing)
-- [License](#license)
 
 ## Features
 
@@ -36,7 +34,7 @@ This project is a backend application built using Spring Boot, designed to manag
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/shivamtiwari6393/ESD-PROJECT.git
+   git clone https://github.com/Shivamtiwari6393/ESD-PROJECT.git
    cd ESD-PROJECT
    ```
 
